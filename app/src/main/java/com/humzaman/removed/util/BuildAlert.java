@@ -170,7 +170,7 @@ public class BuildAlert {
         String removeddit = intentString;
         if (removeddit.contains("old.reddit.com"))
             removeddit = removeddit.replaceFirst("old[.]", "");
-        final String finalRemoveddit = removeddit.replaceFirst("reddit", "removeddit");
+        final String finalRemoveddit = removeddit.replaceFirst("reddit", "unddit");
 
         toolbar.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
@@ -256,16 +256,16 @@ public class BuildAlert {
         if (removeddit.contains("old.reddit.com")) {
             removeddit = removeddit.replaceFirst("old[.]", "");
         }
-        final String finalRemoveddit = removeddit.replaceFirst("reddit", "removeddit");
+        final String finalRemoveddit = removeddit.replaceFirst("reddit", "unddit");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setCustomTitle(dialogToolbar)
-                .setMessage("Submission links are not currently supported.\n\nTap \"Removeddit\" to view the submission on removeddit.com, or try again with a direct link to a comment.")
+                .setMessage("Submission links are not currently supported.\n\nTap \"unddit\" to view the submission on unddit.com, or try again with a direct link to a comment.")
                 .setPositiveButton("OK", (dialog, id) -> {
                     dialog.dismiss();
                     activity.finish();
                 })
-                .setNeutralButton("Removeddit", (dialog, i) -> {
+                .setNeutralButton("unddit", (dialog, i) -> {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(finalRemoveddit));
                     activity.startActivity(browserIntent);
                     dialog.dismiss();

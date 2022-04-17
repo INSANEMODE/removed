@@ -32,7 +32,7 @@
 
         <item
             android:id="@+id/view_on_removeddit"
-            android:title="@string/view_on_removeddit"
+            android:title="@string/view_on_unddit"
             app:showAsAction="never"
             android:orderInCategory="5"/>
     </group>

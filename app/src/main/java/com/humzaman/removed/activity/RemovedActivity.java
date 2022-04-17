@@ -138,11 +138,8 @@ public class RemovedActivity extends AppCompatActivity implements FetchDataCallb
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setProgress(0);
             progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", (dialog, which) -> finish());
-            progressDialog.show();
         }
-        else {
-            progressDialog.show();
-        }
+        progressDialog.show();
     }
 
     private void removeProgressDialog() {
