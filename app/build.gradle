@@ -3,16 +3,21 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         release {
+        storeFile file('C:\\Users\\scott\\.android\\release.jks')
+            storePassword 'Bh-1481137'
+            keyAlias 'release'
+            keyPassword 'Bh-1481137'
         }
     }
     compileSdkVersion 31
     defaultConfig {
         applicationId "com.humzaman.removed"
-        minSdkVersion 22
+        minSdkVersion 25
         targetSdkVersion 31
         versionCode 14
-        versionName "1.5.3"
+        versionName '1.5.5'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
     buildTypes {
         release {

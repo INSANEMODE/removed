@@ -349,7 +349,24 @@ public class BuildAlert {
     @SuppressLint("InflateParams")
     private AlertDialog.Builder buildGeneric() {
         View dialogToolbar = inflater.inflate(R.layout.alert_toolbar, null);
+        String varRemoveddit;
+        if( intentString == null)
+        {
+            Toast.makeText(this.activity,"intent is null",Toast.LENGTH_SHORT).show();
+            varRemoveddit = "https://unddit.com";
+        }
+        else
+        {
 
+            String removeddit = intentString;
+            if (removeddit.contains("old.reddit.com"))
+            {
+                removeddit = removeddit.replaceFirst("old[.]", "");
+            }
+            varRemoveddit = removeddit.replaceFirst("reddit", "unddit");
+        }
+
+        final String finalRemoveddit = varRemoveddit;
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setCustomTitle(dialogToolbar)
                 .setPositiveButton("OK", (dialog, id) -> {
@@ -366,13 +383,25 @@ public class BuildAlert {
                 builder.setMessage("Error: not a valid URL.\n\nPlease share a direct link, not the comment text.");
                 break;
             case FAILED: // failed to retrieve data
-                builder.setMessage("Error: failed to retrieve data from pushshift.io");
+                builder.setMessage("Error: failed to retrieve data from pushshift.io")
+                    .setNeutralButton("unddit", (dialog, i) -> {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(finalRemoveddit));
+                    activity.startActivity(browserIntent);
+                    dialog.dismiss();
+                    activity.finish();
+            });
                 break;
             case NO_INTERNET: // no internet
                 builder.setMessage("Error: check internet connection.");
                 break;
             case NO_DATA_FOUND: // no data found on Pushshift
-                builder.setMessage(R.string.not_archived);
+                builder.setMessage(R.string.not_archived)
+                    .setNeutralButton("unddit", (dialog, i) -> {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(finalRemoveddit));
+                        activity.startActivity(browserIntent);
+                        dialog.dismiss();
+                        activity.finish();
+                    });
                 break;
             case TIMEOUT:
                 builder.setMessage("Error: connection timed out.\n\nPushshift is taking too long to respond.\nTheir servers may be having some issues.\n\nCheck pushshift.io for updates, or try again later.")
@@ -384,7 +413,13 @@ public class BuildAlert {
                        });
                 break;
             case PUSHSHIFT_404:
-                builder.setMessage("Error 404: not found.");
+                builder.setMessage("Error 404: not found.")
+                    .setNeutralButton("unddit", (dialog, i) -> {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(finalRemoveddit));
+                        activity.startActivity(browserIntent);
+                        dialog.dismiss();
+                        activity.finish();
+                    });
                 break;
             case PUSHSHIFT_500:
                 builder.setMessage("Error 500: internal server error.\n\nPushshift's servers seem to be having some issues.\n\nCheck pushshift.io for updates, or try again later.")

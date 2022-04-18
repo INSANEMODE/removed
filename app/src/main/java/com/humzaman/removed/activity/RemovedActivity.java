@@ -114,7 +114,7 @@ public class RemovedActivity extends AppCompatActivity implements FetchDataCallb
             }
             default: {
                 Log.i(TAG, "buildAndShowAlert: Showing " + resultCode.name() + " alertDialog.");
-                this.alertDialog = (new BuildAlert(this, resultCode)).build();
+                this.alertDialog = (new BuildAlert(this, resultCode, viewModel.intentString)).build();
                 break;
             }
         }
